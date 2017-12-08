@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ty.management.dao.UserDAO">
+    <sql id="table">user</sql>
+    <sql id="selectFields">
+        id, username, password, salt
+    </sql>
+    <sql id="insertFields">
+        username, password, salt
+    </sql>
+    <sql id="username">
+        username
+    </sql>
+    <insert id="addUser">
+        INSERT INTO
+        <include refid="table"/>
+        (<include refid="insertFields"/>)
+        VALUES
+        (#{user.username},#{user.password},#{user.salt}
+    </insert>
+
+    <select id="selectByName">
+        SELECT FROM
+        <include refid="table"/>
+        where <include refid="username"/>
+        = #{username}
+    </select>
+</mapper>
