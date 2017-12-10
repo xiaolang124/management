@@ -16,9 +16,9 @@ LoginController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public String login(@RequestParam("userName") String userName,
+    public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password){
-        String result = JsonUtil.getJSONString(1,userService.register(userName,password));
+        String result = JsonUtil.getJSONString(1,userService.register(username,password));
         return result;
 
     }

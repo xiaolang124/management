@@ -20,8 +20,8 @@
         (#{user.username},#{user.password},#{user.salt}
     </insert>
 
-    <select id="selectByName">
-        SELECT FROM
+    <select id="selectByName" resultType="com.ty.management.model.User">
+        SELECT * FROM
         <include refid="table"/>
         where <include refid="username"/>
         = #{username}
