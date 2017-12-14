@@ -17,7 +17,7 @@
         <include refid="table"/>
         (<include refid="insertFields"/>)
         VALUES
-        (#{user.username},#{user.password},#{user.salt}
+        (#{user.username},#{user.password},123)
     </insert>
 
     <select id="selectByName" resultType="com.ty.management.model.User">
@@ -26,4 +26,13 @@
         where <include refid="username"/>
         = #{username}
     </select>
+
+
+
+    <update id="updateUserPassword">
+        update
+        <include refid="table"/>
+        set  password = #{password}
+        where username = #{username}
+    </update>
 </mapper>
