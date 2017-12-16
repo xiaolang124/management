@@ -1,20 +1,27 @@
 package com.ty.management.service;
 
+import com.ty.management.dao.LoginTicketDAO;
 import com.ty.management.dao.UserDAO;
 import com.ty.management.model.HostHolder;
+import com.ty.management.model.LoginTicket;
 import com.ty.management.model.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 public class UserService {
 
     @Autowired
     private UserDAO userDAO;
+
+    @Autowired
+    private LoginTicketDAO loginTicketDAO;
 
     @Autowired
     private HostHolder hostHolder;
@@ -58,7 +65,9 @@ public class UserService {
             User user = userDAO.selectByName(username);
             if(user.getPassword().equals(password)){
                 map.put("000","成功");
-                hostHolder.setUser(user);
+                map.put("userId",user.getId());
+                String ticket = addLoginTicket(user.getId());
+                map.put("ticket", ticket);
             }else {
                 map.put("301","密码错误");
             }
@@ -81,5 +90,17 @@ public class UserService {
         return map;
     }
 
+
+    private String addLoginTicket(int userId) {
+        LoginTicket ticket = new LoginTicket();
+        ticket.setUserId(userId);
+        Date date = new Date();
+        date.setTime(date.getTime() + 3600*24);
+        ticket.setExpired(date);
+        ticket.setStatus(0);
+        ticket.setTicket(UUID.randomUUID().toString().replaceAll("-", ""));
+        loginTicketDAO.addTicket(ticket);
+        return ticket.getTicket();
+    }
 
 }

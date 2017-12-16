@@ -9,9 +9,6 @@
     <sql id="insertFields">
         username, password, salt
     </sql>
-    <sql id="username">
-        username
-    </sql>
     <insert id="addUser">
         INSERT INTO
         <include refid="table"/>
@@ -23,11 +20,17 @@
     <select id="selectByName" resultType="com.ty.management.model.User">
         SELECT * FROM
         <include refid="table"/>
-        where <include refid="username"/>
+        where username
         = #{username}
     </select>
 
-
+    <select id="selectByUserId" resultType="com.ty.management.model.User">
+        select
+        <include refid="selectFields"/>
+        from
+        <include refid="table"/>
+        where id = #{userId}
+    </select>
 
     <update id="updateUserPassword">
         update

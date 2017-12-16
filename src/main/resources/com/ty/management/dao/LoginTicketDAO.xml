@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ty.management.dao.LoginTicketDAO">
+    <sql id="table">login_ticket</sql>
+    <sql id="insertFields">
+        user_id, expired, status, ticket
+    </sql>
+
+    <sql id="selectFields">
+        id, user_id, expired, status, ticket
+    </sql>
+
+    <insert id="addTicket">
+        INSERT INTO
+        <include refid="table"/>
+        (<include refid="insertFields"/>)
+        VALUES
+        (#{loginTicket.userId},#{loginTicket.expired},#{loginTicket.status},#{loginTicket.ticket})
+    </insert>
+
+    <select id="selectByTicket" resultType="com.ty.management.model.LoginTicket">
+        select
+        <include refid="selectFields"/>
+        from
+        <include refid="table"/>
+        where ticket = #{ticket}
+    </select>
+
+</mapper>

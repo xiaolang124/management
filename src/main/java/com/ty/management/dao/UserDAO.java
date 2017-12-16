@@ -13,4 +13,6 @@ public interface UserDAO {
 
     void updateUserPassword(@Param("username") String username,
                             @Param("password") String password);
+
+    User selectByUserId(@Param("userId") int userId);
 }
