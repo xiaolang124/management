@@ -12,6 +12,10 @@ public class JsonUtil {
         return json.toJSONString();
     }
 
+    public static String getJSONString(String string) {
+        return "";
+    }
+
     public static String getJSONString(int code, String msg) {
         JSONObject json = new JSONObject();
         json.put("code", code);
