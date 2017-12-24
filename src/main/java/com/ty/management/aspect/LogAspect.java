@@ -45,10 +45,9 @@ public class LogAspect {
 
     @Around("controllerAspect()")
     public Object around(ProceedingJoinPoint joinPoint)throws Throwable{
-        Object returnVal = joinPoint.proceed();
         long start = System.currentTimeMillis();
+        Object returnVal = joinPoint.proceed();
         try{
-            joinPoint.proceed();
             long end = System.currentTimeMillis();
             logger.info("around" + joinPoint + "user time :" + (end-start) + "ms!");
         }catch (Throwable e){
